@@ -8,8 +8,13 @@ pub(crate) async fn send(topic: &str, message: Message) -> Result<(), PoucheErro
 
   let client = fcm::Client::new();
   let mut data = HashMap::new();
+
   data.insert("title", message.title);
   data.insert("body", message.body);
+
+  if let Some(banner) = message.banner {
+    data.insert("banner", banner);
+  }
 
   let mut builder = fcm::MessageBuilder::new(&key, &topic);
   builder.data(&data)?;

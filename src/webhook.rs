@@ -15,7 +15,7 @@ pub(crate) async fn webhook(_auth: Auth, id: &str, payload: &str) -> Result<(), 
     }
 
     Err(err) => {
-      eprintln!("ERROR: {:?}", err);
+      error!("{}", err);
 
       Err(Custom(Status::Ok, ()))
     }

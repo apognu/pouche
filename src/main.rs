@@ -29,13 +29,14 @@ pub(crate) enum PoucheError {
 struct Message {
   title: String,
   body: String,
+  banner: Option<String>,
 }
 
 #[pymethods]
 impl Message {
   #[new]
-  fn new(title: String, body: String) -> Self {
-    Message { title, body }
+  fn new(title: String, body: String, banner: Option<String>) -> Self {
+    Message { title, body, banner }
   }
 }
 
