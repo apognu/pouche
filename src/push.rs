@@ -16,6 +16,10 @@ pub(crate) async fn send(topic: &str, message: Message) -> Result<(), PoucheErro
     data.insert("banner", banner);
   }
 
+  if let Some(color) = message.color {
+    data.insert("color", color);
+  }
+
   let mut builder = fcm::MessageBuilder::new(&key, &topic);
   builder.data(&data)?;
 

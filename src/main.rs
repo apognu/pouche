@@ -30,13 +30,14 @@ struct Message {
   title: String,
   body: String,
   banner: Option<String>,
+  color: Option<String>
 }
 
 #[pymethods]
 impl Message {
   #[new]
-  fn new(title: String, body: String, banner: Option<String>) -> Self {
-    Message { title, body, banner }
+  fn new(title: String, body: String, banner: Option<String>, color: Option<String>) -> Self {
+    Message { title, body, banner, color }
   }
 }
 
