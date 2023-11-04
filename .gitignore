@@ -1,1 +1,15 @@
 /target
+
+/android/*.iml
+/android/.gradle
+/android/local.properties
+/android/.idea/
+/android/.DS_Store
+/android/build
+/android/captures
+/android/.externalNativeBuild
+/android/.cxx
+/android/local.properties
+/android/app/build/
+/android/app/google-services.json
+

@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Pouche</string>
+    <string name="title_messages">Notifications</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_settings_subscriptions">Subscriptions</string>
+
+    <string name="menu_message_actions">Message actions</string>
+    <string name="menu_clear">Clear all</string>
+    <string name="menu_delete">Delete</string>
+
+    <string name="messages_placeholder_title">Nothing yet</string>
+    <string name="messages_placeholder_content">No notification was received by your device.</string>
+    <string name="settings_placeholder_title">Oops</string>
+    <string name="settings_placeholder_content">There is no settings for this app yet.</string>
+
+    <string name="dialog_messages_clear_title">Clear all notifications?</string>
+    <string name="dialog_messages_clear_content">This will delete all messages your device has received. This cannot be undone.</string>
+
+    <string name="settings_subscriptions_hint"><font size="12">Add subscriptions…</font></string>
+
+    <string name="option_clear">Clear notifications</string>
+    <string name="option_cancel">Cancel</string>
+</resources>

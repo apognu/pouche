@@ -1,0 +1,11 @@
+complexity:
+  NestedBlockDepth:
+    threshold: 6
+
+empty-blocks:
+  EmptyFunctionBlock:
+    ignoreOverridden: true
+
+style:
+  MaxLineLength:
+    maxLineLength: 180
