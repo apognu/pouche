@@ -1,16 +1,19 @@
 use std::{collections::HashMap, env};
 
+use fcm::message::{Message as FcmMessage, Target};
+
 use crate::{Message, PoucheError};
 
 pub(crate) async fn send(topic: &str, message: Message) -> Result<(), PoucheError> {
-  let key = env::var("FCM_API_KEY").unwrap();
-  let topic = format!("/topics/{}", topic);
+  let sa = env::var("SERVICE_ACCOUNT_FILE").unwrap();
+  let topic = format!("{}", topic);
 
-  let client = fcm::Client::new();
+  let client = fcm::FcmClient::builder().service_account_key_json_path(sa).build().await.unwrap();
+
   let mut data = HashMap::new();
 
-  data.insert("title", message.title);
-  data.insert("body", message.body);
+  data.insert("title", message.title.clone());
+  data.insert("body", message.body.clone());
 
   if let Some(banner) = message.banner {
     data.insert("banner", banner);
@@ -20,10 +23,19 @@ pub(crate) async fn send(topic: &str, message: Message) -> Result<(), PoucheErro
     data.insert("color", color);
   }
 
-  let mut builder = fcm::MessageBuilder::new(&key, &topic);
-  builder.data(&data)?;
+  let data = serde_json::to_value(data).unwrap();
 
-  client.send(builder.finalize()).await?;
+  let push = FcmMessage {
+    target: Target::Topic(topic),
+    data: Some(data),
+    notification: None,
+    android: None,
+    apns: None,
+    webpush: None,
+    fcm_options: None,
+  };
+
+  client.send(push).await?;
 
   Ok(())
 }

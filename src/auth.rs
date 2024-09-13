@@ -31,7 +31,7 @@ impl<'r> FromRequest<'r> for Auth {
           (u, p) if u == username && p == password => Some(Outcome::Success(Auth)),
           _ => None,
         })
-        .unwrap_or(Outcome::Failure((Status::Unauthorized, PoucheError::InvalidCredentials))),
+        .unwrap_or(Outcome::Error((Status::Unauthorized, PoucheError::InvalidCredentials))),
 
       _ => Outcome::Success(Auth),
     }

@@ -31,11 +31,11 @@ fn transform_payload(id: &str, payload: &str) -> Result<(String, Message), Pouch
   let code = fs::read_to_string(&file).map_err(PoucheError::from)?;
 
   let (topic, message) = Python::with_gil(|py| {
-    let module = PyModule::from_code(py, &code, &file, &file)?;
+    let module = PyModule::from_code_bound(py, &code, &file, &file)?;
     module.add_class::<Message>()?;
 
-    let topic: String = module.getattr("topic")?.call1(PyTuple::new(py, &[payload]))?.extract()?;
-    let message = module.getattr("transform")?.call1(PyTuple::new(py, &[payload]))?.extract()?;
+    let topic: String = module.getattr("topic")?.call1(PyTuple::new_bound(py, &[payload]))?.extract()?;
+    let message = module.getattr("transform")?.call1(PyTuple::new_bound(py, &[payload]))?.extract()?;
 
     PyResult::Ok((topic, message))
   })

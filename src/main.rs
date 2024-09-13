@@ -21,7 +21,7 @@ pub(crate) enum PoucheError {
   #[error("invalid payload: {0}")]
   InvalidPayload(#[from] serde_json::error::Error),
   #[error("failed sending message: {0}")]
-  SendFailed(#[from] fcm::FcmError),
+  SendFailed(#[from] fcm::FcmClientError),
 }
 
 #[pyclass]
@@ -30,12 +30,13 @@ struct Message {
   title: String,
   body: String,
   banner: Option<String>,
-  color: Option<String>
+  color: Option<String>,
 }
 
 #[pymethods]
 impl Message {
   #[new]
+  #[pyo3(signature = (title, body, banner=None, color=None))]
   fn new(title: String, body: String, banner: Option<String>, color: Option<String>) -> Self {
     Message { title, body, banner, color }
   }
