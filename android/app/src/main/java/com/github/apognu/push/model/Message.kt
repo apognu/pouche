@@ -17,7 +17,8 @@ data class Message(
   val banner: String,
   val date: String,
   val topic: String,
-  val color: String
+  val color: String,
+  val emoji: String,
 )
 
 @Dao

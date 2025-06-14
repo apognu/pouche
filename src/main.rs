@@ -31,14 +31,15 @@ struct Message {
   body: String,
   banner: Option<String>,
   color: Option<String>,
+  emoji: Option<String>,
 }
 
 #[pymethods]
 impl Message {
   #[new]
-  #[pyo3(signature = (title, body, banner=None, color=None))]
-  fn new(title: String, body: String, banner: Option<String>, color: Option<String>) -> Self {
-    Message { title, body, banner, color }
+  #[pyo3(signature = (title, body, banner=None, color=None, emoji=None))]
+  fn new(title: String, body: String, banner: Option<String>, color: Option<String>, emoji: Option<String>) -> Self {
+    Message { title, body, banner, color, emoji }
   }
 }
 

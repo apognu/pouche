@@ -1,6 +1,6 @@
 use std::{collections::HashMap, env};
 
-use fcm::message::{Message as FcmMessage, Target};
+use fcm::message::{AndroidConfig, AndroidMessagePriority, Message as FcmMessage, Target};
 
 use crate::{Message, PoucheError};
 
@@ -23,13 +23,21 @@ pub(crate) async fn send(topic: &str, message: Message) -> Result<(), PoucheErro
     data.insert("color", color);
   }
 
+  if let Some(emoji) = message.emoji {
+    data.insert("emoji", emoji);
+  }
+
   let data = serde_json::to_value(data).unwrap();
 
   let push = FcmMessage {
     target: Target::Topic(topic),
     data: Some(data),
     notification: None,
-    android: None,
+    android: Some(AndroidConfig {
+      priority: Some(AndroidMessagePriority::High),
+      ttl: Some("0s".to_string()),
+      ..Default::default()
+    }),
     apns: None,
     webpush: None,
     fcm_options: None,

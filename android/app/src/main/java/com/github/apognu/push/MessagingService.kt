@@ -6,15 +6,20 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.util.Log
+import android.view.View
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.TaskStackBuilder
 import com.github.apognu.push.model.Message
+import com.github.apognu.push.util.Emojis
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.core.graphics.toColorInt
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 class MessagingService : FirebaseMessagingService() {
@@ -29,18 +34,25 @@ class MessagingService : FirebaseMessagingService() {
     val banner = message.data["banner"] ?: ""
     val topic = message.from?.removePrefix("/topics/") ?: ""
     val color = message.data["color"] ?: ""
+    val emoji = message.data["emoji"] ?: ""
     val date = Date(message.sentTime)
 
     (application as Pouche).messageRepository.insert(
-        Message(0, uid, title, body, banner, dateFormat.format(date), topic, color)
+        Message(0, uid, title, body, banner, dateFormat.format(date), topic, color, emoji)
     )
 
-    notify(Random().nextInt(), title, body, banner)
+    var notificationTitle = title
+
+    Emojis.fromCode(this, emoji)?.let {
+      notificationTitle = "$it $notificationTitle"
+    }
+
+    notify(Random().nextInt(), notificationTitle, body, banner, color)
 
     super.onMessageReceived(message)
   }
 
-  private fun notify(id: Int, title: String, body: String, banner: String) {
+  private fun notify(id: Int, title: String, body: String, banner: String, color: String) {
     createChannel()
 
     val intent =
@@ -60,7 +72,7 @@ class MessagingService : FirebaseMessagingService() {
           null
         }
 
-    val builder =
+    var builder =
         NotificationCompat.Builder(this, channelId)
             .setContentIntent(intent)
             .setSmallIcon(R.drawable.ic_notifications_black_24dp)
@@ -70,8 +82,15 @@ class MessagingService : FirebaseMessagingService() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setStyle(
-                NotificationCompat.BigPictureStyle().bigPicture(bannerDrawable).bigLargeIcon(null)
+                NotificationCompat.BigPictureStyle().bigPicture(bannerDrawable)
             )
+
+    if (color.isNotEmpty()) {
+      try {
+        builder = builder.setColor(color.toColorInt())
+      } catch (_: IllegalArgumentException) {
+      }
+    }
 
     with(NotificationManagerCompat.from(this)) { notify(id, builder.build()) }
   }

@@ -12,13 +12,14 @@ import com.github.apognu.push.model.SubscriptionDao
 
 @IDatabase(
   entities = [Subscription::class, Message::class],
-  version = 2,
+  version = 3,
   exportSchema = false
 )
 abstract class Database : RoomDatabase() {
   companion object {
     private val MIGRATIONS: List<Migration> = listOf(
-      Migrations.MIGRATION_1_2
+      Migrations.MIGRATION_1_2,
+      Migrations.MIGRATION_2_3,
     )
 
     private var instance: Database? = null

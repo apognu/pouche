@@ -5,10 +5,14 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0'
-        classpath 'com.google.gms:google-services:4.3.10'
+        classpath 'com.android.tools.build:gradle:8.10.1'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.21'
+        classpath 'com.google.gms:google-services:4.4.2'
     }
+}
+
+plugins {
+    id('com.google.devtools.ksp').version('2.0.21-1.0.25').apply(false)
 }
 
 task clean(type: Delete) {
