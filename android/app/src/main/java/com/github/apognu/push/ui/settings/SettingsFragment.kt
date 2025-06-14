@@ -47,9 +47,11 @@ class SettingsFragment : Fragment() {
 
     viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
       repository.allOnce().map { SubscriptionChip(it.slug) }.let {
-        requireActivity().runOnUiThread {
-          it.forEach {
-            createChip(it.title, persist = false)
+        activity?.runOnUiThread {
+          if (isAdded) {
+            it.forEach {
+              createChip(it.title, persist = false)
+            }
           }
         }
       }

@@ -1,11 +1,11 @@
 package com.github.apognu.push.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Insert
 import androidx.room.Delete
+import androidx.room.Entity
+import androidx.room.Insert
+import androidx.room.PrimaryKey
+import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Entity
@@ -17,7 +17,9 @@ data class Message(
   val banner: String,
   val date: String,
   val topic: String,
-  val color: String
+  val color: String,
+  val emoji: String,
+  val markdown: Boolean,
 )
 
 @Dao

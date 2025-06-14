@@ -2,10 +2,45 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.notifications.MessagesFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/request_permission_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:contentPaddingTop="4dp"
+        app:contentPaddingLeft="16dp"
+        app:contentPaddingRight="12dp"
+        app:contentPaddingBottom="4dp"
+        style="@style/Widget.Material3.CardView.Filled">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="@string/permission_prompt" />
+
+            <Button
+                android:id="@+id/request_permission"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/permission_button"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/filters"
@@ -19,31 +54,31 @@
         android:id="@+id/messages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="24dp"
         android:visibility="gone"
-        tools:listitem="@layout/row_message"
-        tools:visibility="visible" />
+        tools:listitem="@layout/row_message" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/placeholder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:orientation="vertical"
+        android:paddingTop="32dp"
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
             android:layout_marginBottom="16dp"
             android:src="@drawable/ic_notifications_black_24dp"
-            app:tint="@color/primary" />
+            app:tint="@android:color/white" />
 
         <TextView
-            style="@style/TextAppearance.Material3.HeadlineLarge"
+            style="@style/TextAppearance.Material3.HeadlineMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="6dp"
             android:text="@string/messages_placeholder_title"
             android:textAlignment="center" />
 
@@ -52,7 +87,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/messages_placeholder_content"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/material_on_surface_disabled" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

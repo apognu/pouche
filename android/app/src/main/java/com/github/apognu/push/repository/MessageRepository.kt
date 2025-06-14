@@ -4,7 +4,6 @@ import com.github.apognu.push.model.Message
 import com.github.apognu.push.model.MessageDao
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 
 class MessageRepository(private val dao: MessageDao) {

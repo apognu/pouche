@@ -1,5 +1,6 @@
 /target
 
+/android/.kotlin
 /android/*.iml
 /android/.gradle
 /android/local.properties

@@ -1,7 +1,6 @@
 package com.github.apognu.push
 
 import android.content.Context
-import androidx.room.Database as IDatabase
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
@@ -9,16 +8,19 @@ import com.github.apognu.push.model.Message
 import com.github.apognu.push.model.MessageDao
 import com.github.apognu.push.model.Subscription
 import com.github.apognu.push.model.SubscriptionDao
+import androidx.room.Database as IDatabase
 
 @IDatabase(
   entities = [Subscription::class, Message::class],
-  version = 2,
+  version = 4,
   exportSchema = false
 )
 abstract class Database : RoomDatabase() {
   companion object {
     private val MIGRATIONS: List<Migration> = listOf(
-      Migrations.MIGRATION_1_2
+      Migrations.MIGRATION_1_2,
+      Migrations.MIGRATION_2_3,
+      Migrations.MIGRATION_3_4,
     )
 
     private var instance: Database? = null

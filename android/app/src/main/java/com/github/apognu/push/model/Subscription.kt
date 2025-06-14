@@ -1,10 +1,10 @@
 package com.github.apognu.push.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import androidx.room.Dao
-import androidx.room.Query
+import androidx.room.Entity
 import androidx.room.Insert
+import androidx.room.PrimaryKey
+import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Entity

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#3c6382</color>
+    <color name="primary">#4c566a</color>
     <color name="secondary">#60a3bc</color>
     <color name="colorOnSurface">@android:color/black</color>
     <color name="title">@color/primary</color>
