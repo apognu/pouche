@@ -1,14 +1,19 @@
 package com.github.apognu.push
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.appcompat.widget.ActionMenuView
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.children
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -16,6 +21,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.github.apognu.push.databinding.ActivityMainBinding
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
@@ -30,6 +36,7 @@ class MainActivity : AppCompatActivity() {
   private val repository by lazy { (applicationContext as Pouche).subscriptionRepository }
 
   private lateinit var binding: ActivityMainBinding
+  private lateinit var notifications: Snackbar
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -49,6 +56,15 @@ class MainActivity : AppCompatActivity() {
         }
       }
     )
+
+    notifications = Snackbar.make(binding.container, resources.getString(R.string.permission_prompt), Snackbar.LENGTH_INDEFINITE).also {
+      it.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        .setCompoundDrawablesWithIntrinsicBounds(R.drawable.notification, 0, 0, 0)
+
+      it.setAction(R.string.permission_button) {
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1)
+      }
+    }
   }
 
   override fun onResume() {
@@ -73,6 +89,12 @@ class MainActivity : AppCompatActivity() {
         )
         binding.bottombar.setupWithNavController(it)
       }
+    }
+
+    if (NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+      notifications.dismiss()
+    } else {
+      notifications.show()
     }
   }
 

@@ -10,9 +10,28 @@
 
         <item name="android:statusBarColor">@color/primary</item>
         <item name="android:itemBackground">@android:color/system_surface_bright_dark</item>
+
+        <item name="snackbarStyle">@style/Theme.Pouche.SnackbarStyle</item>
+        <item name="snackbarTextViewStyle">@style/Theme.Pouche.SnackbarTextStyle</item>
+        <item name="snackbarButtonStyle">@style/Theme.Pouche.SnackbarButtonStyle</item>
     </style>
 
     <style name="Theme.Pouche.ExpandedAppBarTitle">
         <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="Theme.Pouche.SnackbarStyle" parent="@style/Widget.MaterialComponents.Snackbar">
+        <item name="android:backgroundTint">@color/primary</item>
+    </style>
+
+    <style name="Theme.Pouche.SnackbarTextStyle" parent="@style/Widget.Material3.Snackbar">
+        <item name="android:textColor">@color/colorOnSurface</item>
+        <item name="android:drawableTint">@color/colorOnSurface</item>
+        <item name="android:drawablePadding">32dp</item>
+    </style>
+
+
+    <style name="Theme.Pouche.SnackbarButtonStyle" parent="@style/Widget.Material3.Button.TextButton.Snackbar">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>

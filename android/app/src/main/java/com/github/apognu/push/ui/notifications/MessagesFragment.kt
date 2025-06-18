@@ -103,10 +103,6 @@ class MessagesFragment : Fragment() {
       }
     }
 
-    binding.requestPermission.setOnClickListener {
-      ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1)
-    }
-
     val messages =
       MessagesAdapter(requireContext(), MessagesAdapterCallback()).apply { setHasStableIds(true) }
 
@@ -140,17 +136,6 @@ class MessagesFragment : Fragment() {
     }
 
     return binding.root
-  }
-
-  override fun onResume() {
-    super.onResume()
-
-    binding.requestPermissionLayout.visibility =
-      if (!NotificationManagerCompat.from(requireContext()).areNotificationsEnabled()) {
-        View.VISIBLE
-      } else {
-        View.GONE
-      }
   }
 
   override fun onDestroyView() {

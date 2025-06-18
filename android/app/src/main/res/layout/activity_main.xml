@@ -51,7 +51,6 @@
 
     </androidx.core.widget.NestedScrollView>
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottombar"
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     <string name="title_settings">Settings</string>
     <string name="title_settings_subscriptions">Subscriptions</string>
 
-    <string name="permission_prompt">You need to allow notifications to use Pouche</string>
+    <string name="permission_prompt">You need to allow notifications to use Pouche.</string>
     <string name="permission_button">Allow</string>
 
     <string name="menu_message_actions">Message actions</string>

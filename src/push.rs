@@ -27,6 +27,12 @@ pub(crate) async fn send(topic: &str, message: Message) -> Result<(), PoucheErro
     data.insert("emoji", emoji);
   }
 
+  if let Some(markdown) = message.markdown {
+    if markdown {
+      data.insert("markdown", "true".to_string());
+    }
+  }
+
   let data = serde_json::to_value(data).unwrap();
 
   let push = FcmMessage {
